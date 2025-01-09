@@ -1,9 +1,6 @@
 package Tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.Test;
 
@@ -55,7 +52,7 @@ public class PracticeFormTest {
         File file = new File("src/test/resources/1.png");
         chooseFileButton.sendKeys(file.getAbsolutePath());
 
-        // Scroll in pafina
+        // Scroll in pagina
         js.executeScript("window.scrollBy(0, 500);");
 
         //identificarea elementelor la Gender-> radio button
@@ -63,15 +60,30 @@ public class PracticeFormTest {
         WebElement genderFemaleElemet = driver.findElement(By.xpath("//label[@for='gender-radio-2']"));
         WebElement genderOtherElemet = driver.findElement(By.xpath("//label[@for='gender-radio-3']"));
 
-        String genderValue = "Other";
+        String genderValue = "Female";
 
-        if (genderValue.equals("Male")) {
+        if (genderMaleElemet.getText().equals(genderValue)) {
             genderMaleElemet.click();
-        } else if (genderValue.equals("Female")) {
+        } else if (genderFemaleElemet.getText().equals(genderValue)) {
             genderFemaleElemet.click();
-        } else if (genderValue.equals("Other")) {
+        } else if (genderOtherElemet.getText().equals(genderValue)) {
             genderOtherElemet.click();
         }
+
+        WebElement subjectElement = driver.findElement(By.id("subjectsInput"));
+        String subjectsValue = "Social Studies";
+        subjectElement.sendKeys(subjectsValue);
+        subjectElement.sendKeys(Keys.ENTER);
+
+        WebElement StateElement = driver.findElement(By.id("react-select-3-input"));
+        js.executeScript("arguments[0].click()", StateElement);
+        StateElement.sendKeys("NCR");
+        StateElement.sendKeys(Keys.ENTER);
+
+        WebElement CityElement = driver.findElement(By.id("react-select-4-input"));
+        js.executeScript("arguments[0].click()", CityElement);
+        CityElement.sendKeys("Delhi");
+        CityElement.sendKeys(Keys.ENTER);
 
 
 
